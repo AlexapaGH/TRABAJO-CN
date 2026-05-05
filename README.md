@@ -36,7 +36,7 @@ donde `c` es la velocidad de propagación.
 Se imponen condiciones de contorno que representan el comportamiento físico del látigo:
 
 - **Extremo fijo / mango**: se prescribe un impulso temporal en `x = 0`.
-- **Extremo libre / punta**: se usa una condición de Neumann $$ \frac{\partial u}{\partial x} = 0 $$ en `x = L`.
+- **Extremo libre / punta**: se usa una condición de Neumann $ \frac{\partial u}{\partial x} = 0 $ en `x = L`.
 
 Estas condiciones permiten simular cómo una excitación inicial recorre el látigo y se refleja en la punta libre.
 
