@@ -50,9 +50,9 @@ El proyecto incluye varios esquemas para estudiar la evolución de la solución:
 
 Además, se usan distintos impulsos en el extremo fijo para comparar su efecto sobre la propagación:
 
-- impulso gaussiano,
-- impulso sinusoidal,
-- impulso triangular.
+- Impulso gaussiano.
+- Impulso sinusoidal.
+- Impulso triangular.
 
 ## Estructura de los archivos
 
@@ -90,14 +90,11 @@ El script principal puede ejecutarse desde la carpeta del proyecto con:
 
 ```bash
 python 1_animacion_latigo.py
+(los demás módulos siguen el mismo estilo de ejecución, ej.: python 2_estabilidad_latigo.py)
 ```
 
 Al ejecutarlo se generan las figuras y la animación asociadas al látigo. Los demás scripts están pensados para completar el estudio con análisis de estabilidad, error y energía.
 
-## Resultado esperado
-
-Al final del trabajo se dispone de una presentación oral de unos 10 minutos en la que se explica la física del problema, el método numérico, los resultados obtenidos y las conclusiones. El proyecto está organizado para que cada integrante del grupo pueda defender una parte distinta del análisis.
-
 ## Bibliografía
 
-La bibliografía puede completarse con apuntes de la asignatura, referencias sobre ecuaciones en derivadas parciales, métodos de diferencias finitas y estabilidad numérica, así como documentación de `numpy` y `matplotlib`.
+Basada enteramente en lso apuntes de la asignatura de `Cálculo Numérico` así como documentación de `scipy` , `numpy` y `matplotlib`.
