@@ -36,7 +36,7 @@ donde `c` es la velocidad de propagación.
 Se imponen condiciones de contorno que representan el comportamiento físico del látigo:
 
 - **Extremo fijo / mango**: se prescribe un impulso temporal en `x = 0`.
-- **Extremo libre / punta**: se usa una condición de Neumann `\partial u / \partial x = 0` en `x = L`.
+- **Extremo libre / punta**: se usa una condición de Neumann `$$\frac{\partial u}{\partial x} = 0$$` en `x = L`.
 
 Estas condiciones permiten simular cómo una excitación inicial recorre el látigo y se refleja en la punta libre.
 
@@ -81,7 +81,7 @@ Más allá de obtener gráficas bonitas, el trabajo busca demostrar que:
 
 - una EDP puede describir un problema físico real,
 - la discretización numérica introduce restricciones de estabilidad,
-- la elección del paso temporal `\Delta t` y del espacio `\Delta x` afecta directamente a la calidad de la solución,
+- la elección del paso temporal `$$\Delta t$$` y del espacio `$$\Delta x$$` afecta directamente a la calidad de la solución,
 - diferentes esquemas pueden producir resultados muy distintos aunque resuelvan el mismo modelo físico.
 
 ## Cómo ejecutar el proyecto
@@ -97,4 +97,4 @@ Al ejecutarlo se generan las figuras y la animación asociadas al látigo. Los d
 
 ## Bibliografía
 
-Basada enteramente en lso apuntes de la asignatura de `Cálculo Numérico` así como documentación de `scipy` , `numpy` y `matplotlib`.
+Basada enteramente en los apuntes de la asignatura de `Cálculo Numérico` así como documentación de `scipy` , `numpy` y `matplotlib`.
