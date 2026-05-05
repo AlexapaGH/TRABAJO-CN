@@ -38,9 +38,9 @@ Se imponen condiciones de contorno que representan el comportamiento físico del
 - **Extremo fijo / mango**: se prescribe un impulso temporal en `x = 0`.
 - **Extremo libre / punta**: se usa una condición de Neumann
   
-	$$
-	\frac{\partial u}{\partial x} = 0
-	$$
+$$
+\frac{\partial u}{\partial x} = 0
+$$
 
 	en $x = L$.
 
