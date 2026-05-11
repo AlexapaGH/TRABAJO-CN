@@ -9,10 +9,9 @@ Ejecutar:
     python 1_animacion_latigo.py
 
 Genera además:
-  - snapshot de fotogramas representativos
+  - snapshot de fotogramas representativos de la animación
   - figura 2D del látigo animado (guardar como GIF o MP4 descomentando save)
 """
-
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
