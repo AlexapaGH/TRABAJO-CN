@@ -19,12 +19,24 @@ Metodología:
     u(x,t) = sin(π x / (2L)) · cos(π c t / (2L))
 
 Ejecutar:
-    python 3_errores_semidisc_latigo.py
+    python 3_errores_semidisc_latigo.py [--guardar]
 """
 
+import argparse
 import numpy as np
 import matplotlib.pyplot as plt
 from utils import L, C
+
+# ───────────────────────────────────────────────────────────────
+#  Argumentos de línea de comandos
+# ───────────────────────────────────────────────────────────────
+parser = argparse.ArgumentParser(
+    description='Análisis de errores de semi-discretización',
+    formatter_class=argparse.RawDescriptionHelpFormatter
+)
+parser.add_argument('--guardar', action='store_true', default=False,
+                    help='Guardar todos los archivos (valor por defecto)')
+args = parser.parse_args()
 
 # ───────────────────────────────────────────────────────────────
 #  Solución analítica (primer modo de Fourier con CC fijo-libre)
@@ -193,8 +205,11 @@ ax_t.set_title(f'Error L² vs Δt  (N={N_fixed}, t={t_samp:.1f}s)', fontsize=10)
 ax_t.legend(fontsize=10); ax_t.grid(True, alpha=0.4, which='both')
 
 plt.tight_layout()
-plt.savefig('errores_convergencia.png', dpi=150, bbox_inches='tight')
-print("Guardado: errores_convergencia.png")
+if args.guardar:
+    plt.savefig('errores_convergencia.png', dpi=150, bbox_inches='tight')
+    print("Guardado: errores_convergencia.png")
+else:
+    print("No se guardó: errores_convergencia.png")
 plt.show()
 
 
@@ -210,8 +225,11 @@ ax2.set_title('Evolución temporal del error L²  –  Distintos refinamientos (
               fontsize=11, fontweight='bold')
 ax2.legend(fontsize=10); ax2.grid(True, alpha=0.4, which='both')
 plt.tight_layout()
-plt.savefig('errores_vs_tiempo.png', dpi=150, bbox_inches='tight')
-print("Guardado: errores_vs_tiempo.png")
+if args.guardar:
+    plt.savefig('errores_vs_tiempo.png', dpi=150, bbox_inches='tight')
+    print("Guardado: errores_vs_tiempo.png")
+else:
+    print("No se guardó: errores_vs_tiempo.png")
 plt.show()
 
 
@@ -245,8 +263,11 @@ for ax, Nplot, col in zip(axes3, [20, 80], ['#D85A30', '#1D9E75']):
     ax.axvline(L, color='forestgreen', lw=1.5, ls='--', alpha=0.5)
 
 plt.tight_layout()
-plt.savefig('error_truncamiento.png', dpi=150, bbox_inches='tight')
-print("Guardado: error_truncamiento.png")
+if args.guardar:
+    plt.savefig('error_truncamiento.png', dpi=150, bbox_inches='tight')
+    print("Guardado: error_truncamiento.png")
+else:
+    print("No se guardó: error_truncamiento.png")
 plt.show()
 
 print("\n=== Resumen de convergencia espacial ===")

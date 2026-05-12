@@ -6,13 +6,14 @@ Muestra la evolución temporal u(x, t) con:
   • Extremo LIBRE (x=L, punta): condición de Neumann ∂u/∂x = 0
 
 Ejecutar:
-    python 1_animacion_latigo.py
+    python 1_animacion_latigo.py --guardar      # Guarda todos los archivos
+    python 1_animacion_latigo.py  # No guarda nada
 
 Genera además:
-  - snapshot de fotogramas representativos
+  - snapshot de fotogramas representativos de la animación
   - figura 2D del látigo animado (guardar como GIF o MP4 descomentando save)
 """
-
+import argparse
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
@@ -21,6 +22,18 @@ from utils import (
     solver_explicito, impulso_gaussiano,
     impulso_sinusoidal, impulso_triangular, L, C
 )
+
+# ───────────────────────────────────────────────────────────────
+#  Argumentos de línea de comandos
+# ───────────────────────────────────────────────────────────────
+parser = argparse.ArgumentParser(
+    description='Animación del látigo 1D',
+    formatter_class=argparse.RawDescriptionHelpFormatter,
+    epilog='Ejemplos:\n  python 1_animacion_latigo.py --guardar\n  python 1_animacion_latigo.py --no-guardar'
+)
+parser.add_argument('--guardar', action='store_true', default=False,
+                    help='Guardar todos los archivos (valor por defecto)')
+args = parser.parse_args()
 
 # ───────────────────────────────────────────────────────────────
 #  Parámetros de simulación
@@ -84,8 +97,11 @@ for ax, ts in zip(axes.flat, t_snaps):
     ax.grid(True, alpha=0.3)
 
 plt.tight_layout()
-plt.savefig('snapshots_latigo.png', dpi=150, bbox_inches='tight')
-print("Guardado: snapshots_latigo.png")
+if args.guardar:
+    plt.savefig('snapshots_latigo.png', dpi=150, bbox_inches='tight')
+    print("Guardado: snapshots_latigo.png")
+else:
+    print("No se guardó: snapshots_latigo.png ")
 plt.show()
 
 # ───────────────────────────────────────────────────────────────
@@ -107,8 +123,11 @@ ax2.axvline(0, color='crimson',     lw=1.5, ls='--', label='Extremo fijo (mango)
 ax2.axvline(L, color='forestgreen', lw=1.5, ls='--', label='Extremo libre (punta)')
 ax2.legend(loc='upper right', fontsize=9)
 plt.tight_layout()
-plt.savefig('diagrama_xt_latigo.png', dpi=150, bbox_inches='tight')
-print("Guardado: diagrama_xt_latigo.png")
+if args.guardar:
+    plt.savefig('diagrama_xt_latigo.png', dpi=150, bbox_inches='tight')
+    print("Guardado: diagrama_xt_latigo.png")
+else:
+    print("No se guardó: diagrama_xt_latigo.png")
 plt.show()
 
 # ───────────────────────────────────────────────────────────────
@@ -173,8 +192,11 @@ ani = animation.FuncAnimation(
 
 # Descomenta para guardar (requiere ffmpeg o pillow):
 # ani.save('animacion_latigo.mp4', writer='ffmpeg', fps=30, dpi=120)
-# ani.save('animacion_latigo.gif', writer='pillow', fps=25)
-print("Animación lista. Cierra la ventana para continuar.")
+if args.guardar:
+    ani.save('animacion_latigo.gif', writer='pillow', fps=25)
+    print("Guardado: animacion_latigo.gif")
+else:
+    print("No se guardó: animacion_latigo.gif")
 plt.tight_layout()
 plt.show()
 
@@ -224,6 +246,9 @@ for ax, (nombre, func) in zip(axes4, impulsos):
     ax_inset.grid(True, alpha=0.3); ax_inset.axhline(0, color='gray', lw=0.5)
 
 plt.tight_layout()
-plt.savefig('comparacion_impulsos.png', dpi=150, bbox_inches='tight')
-print("Guardado: comparacion_impulsos.png")
+if args.guardar:
+    plt.savefig('comparacion_impulsos.png', dpi=150, bbox_inches='tight')
+    print("Guardado: comparacion_impulsos.png")
+else:
+    print("No se guardó: comparacion_impulsos.png")
 plt.show()

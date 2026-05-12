@@ -8,7 +8,7 @@ Condiciones de contorno FÍSICAS del látigo:
   • x = 0  (extremo fijo / mango): Dirichlet no homogéneo
             u(0, t) = impulso(t)  → el látigo se agita desde aquí
   • x = L  (extremo libre / punta): Neumann homogéneo
-            ∂u/∂x (L, t) = 0     → implementado con punto fantasma
+            ∂u/∂x (L, t) = 0     → implementado con punto fantasma u_N = u_{N-1}
 
 Esquemas implementados:
   - Explícito FTCS / Leapfrog (equivalentes para la ecuación de ondas)
@@ -108,7 +108,8 @@ def solver_explicito(N, c, dt, t_max, func_impulso=None):
         # CC izquierda: impulso prescrito
         u_new[0] = func_impulso(t_new)
 
-        # CC derecha: extremo libre — Leapfrog con punto fantasma u_N = u_{N-1}
+        # CC derecha: extremo libre — Neumann homogéneo ∂u/∂x = 0
+        # Punto fantasma: u_N = u_{N-1} → δ²_x u_{N-1} = u_{N-2} - u_{N-1}
         u_new[-1] = 2*u[-1] - u_old[-1] + r2 * (u[-2] - u[-1])
 
         if s % stride == 0:
@@ -185,8 +186,8 @@ def solver_crank_nicolson(N, c, dt, t_max, func_impulso=None):
         # Fila j=0 (i=1): al * u^{n+1}_0  se conoce → restarlo de la ecuación
         rhs[0] -= al * imp
 
-        # RHS para el nodo libre i = N-1  (punto fantasma: u_N = u_{N-1})
-        # δ²_x u_{N-1}^{n-1} con Neumann: (u_{N-2}^{n-1} - u_{N-1}^{n-1})
+        # RHS para el nodo libre i = N-1  (Neumann homogéneo: ∂u/∂x = 0, punto fantasma)
+        # δ²_x u_{N-1}^{n-1} = u_{N-2}^{n-1} - u_{N-1}^{n-1}
         rhs[-1] = (2.0 * u[-1] - u_old[-1]
                    + (r**2 / 2.0) * (u_old[-2] - u_old[-1]))
 

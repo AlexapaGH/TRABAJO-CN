@@ -11,9 +11,10 @@ Puntos 6-7 del trabajo:
   • Perfil de velocidad de la punta (extremo libre) vs tiempo
 
 Ejecutar:
-    python 5_energia_casos_latigo.py
+    python 5_energia_casos_latigo.py [--guardar]
 """
 
+import argparse
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
@@ -22,6 +23,17 @@ from utils import (
     impulso_gaussiano, impulso_sinusoidal, impulso_triangular,
     energia_discreta, L, C, RHO
 )
+
+# ───────────────────────────────────────────────────────────────
+#  Argumentos de línea de comandos
+# ───────────────────────────────────────────────────────────────
+parser = argparse.ArgumentParser(
+    description='Conservación de energía y casos de prueba',
+    formatter_class=argparse.RawDescriptionHelpFormatter
+)
+parser.add_argument('--guardar', action='store_true', default=False,
+                    help='Guardar todos los archivos (valor por defecto)')
+args = parser.parse_args()
 
 # ─────────────────────────────────────────────────────────────────
 #  Parámetros comunes
@@ -133,8 +145,11 @@ ax.legend(lines1 + lines2, labels1 + labels2, fontsize=8.5, loc='upper right')
 ax.set_xlim(0, T_MAX)
 
 plt.tight_layout()
-plt.savefig('energia_latigo.png', dpi=150, bbox_inches='tight')
-print("Guardado: energia_latigo.png")
+if args.guardar:
+    plt.savefig('energia_latigo.png', dpi=150, bbox_inches='tight')
+    print("Guardado: energia_latigo.png")
+else:
+    print("No se guardó: energia_latigo.png")
 plt.show()
 
 
@@ -210,8 +225,11 @@ for n in range(1, 6):
 ax_fft.legend(fontsize=7.5)
 
 plt.tight_layout()
-plt.savefig('chasquido_punta.png', dpi=150, bbox_inches='tight')
-print("Guardado: chasquido_punta.png")
+if args.guardar:
+    plt.savefig('chasquido_punta.png', dpi=150, bbox_inches='tight')
+    print("Guardado: chasquido_punta.png")
+else:
+    print("No se guardó: chasquido_punta.png")
 plt.show()
 
 
@@ -252,8 +270,11 @@ for row, (nombre, func, col) in enumerate(casos):
         ax.grid(True, alpha=0.3)
 
 plt.tight_layout()
-plt.savefig('casos_prueba_latigo.png', dpi=150, bbox_inches='tight')
-print("Guardado: casos_prueba_latigo.png")
+if args.guardar:
+    plt.savefig('casos_prueba_latigo.png', dpi=150, bbox_inches='tight')
+    print("Guardado: casos_prueba_latigo.png")
+else:
+    print("No se guardó: casos_prueba_latigo.png")
 plt.show()
 
 

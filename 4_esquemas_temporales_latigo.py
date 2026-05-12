@@ -11,12 +11,24 @@ CC: fijo (x=0) | libre (x=L)
 CI: primer modo propio sin(πx/2L)  → solución analítica exacta disponible
 
 Ejecutar:
-    python 4_esquemas_temporales_latigo.py
+    python 4_esquemas_temporales_latigo.py [--guardar]
 """
 
+import argparse
 import numpy as np
 import matplotlib.pyplot as plt
 from utils import solver_explicito, solver_crank_nicolson, impulso_gaussiano, L, C
+
+# ───────────────────────────────────────────────────────────────
+#  Argumentos de línea de comandos
+# ───────────────────────────────────────────────────────────────
+parser = argparse.ArgumentParser(
+    description='Comparación de esquemas temporales',
+    formatter_class=argparse.RawDescriptionHelpFormatter
+)
+parser.add_argument('--guardar', action='store_true', default=False,
+                    help='Guardar todos los archivos (valor por defecto)')
+args = parser.parse_args()
 
 # ─────────────────────────────────────────────────────────────────
 #  Solución analítica exacta (CC fijo-libre, CI = 1er modo propio)
@@ -149,8 +161,11 @@ for col, tt in enumerate(t_targets):
             ax.legend(fontsize=7)
 
 plt.tight_layout()
-plt.savefig('comparacion_esquemas.png', dpi=150, bbox_inches='tight')
-print("Guardado: comparacion_esquemas.png")
+if args.guardar:
+    plt.savefig('comparacion_esquemas.png', dpi=150, bbox_inches='tight')
+    print("Guardado: comparacion_esquemas.png")
+else:
+    print("No se guardó: comparacion_esquemas.png")
 plt.show()
 
 
@@ -181,8 +196,11 @@ for ax, rv in zip(axes2, r_vals_compare):
     ax.legend(fontsize=9); ax.grid(True, alpha=0.35, which='both')
 
 plt.tight_layout()
-plt.savefig('error_esquemas_vs_t.png', dpi=150, bbox_inches='tight')
-print("Guardado: error_esquemas_vs_t.png")
+if args.guardar:
+    plt.savefig('error_esquemas_vs_t.png', dpi=150, bbox_inches='tight')
+    print("Guardado: error_esquemas_vs_t.png")
+else:
+    print("No se guardó: error_esquemas_vs_t.png")
 plt.show()
 
 
@@ -234,8 +252,11 @@ ax_cn.set_xlim(0, 1); ax_cn.set_ylim(0.5, 1.05)
 ax_cn.legend(fontsize=9); ax_cn.grid(True, alpha=0.35)
 
 plt.tight_layout()
-plt.savefig('dispersion_esquemas.png', dpi=150, bbox_inches='tight')
-print("Guardado: dispersion_esquemas.png")
+if args.guardar:
+    plt.savefig('dispersion_esquemas.png', dpi=150, bbox_inches='tight')
+    print("Guardado: dispersion_esquemas.png")
+else:
+    print("No se guardó: dispersion_esquemas.png")
 plt.show()
 
 
@@ -285,8 +306,11 @@ ax_e.set_title('Error de amplitud acumulado', fontsize=10)
 ax_e.legend(fontsize=10); ax_e.grid(True, alpha=0.35)
 
 plt.tight_layout()
-plt.savefig('error_fase_amplitud.png', dpi=150, bbox_inches='tight')
-print("Guardado: error_fase_amplitud.png")
+if args.guardar:
+    plt.savefig('error_fase_amplitud.png', dpi=150, bbox_inches='tight')
+    print("Guardado: error_fase_amplitud.png")
+else:
+    print("No se guardó: error_fase_amplitud.png")
 plt.show()
 
 print("\n=== Resumen de esquemas ===")
