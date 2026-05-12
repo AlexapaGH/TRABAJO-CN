@@ -8,13 +8,25 @@ Contenido (punto 5 del trabajo):
   D) Comparación explícito vs Crank-Nicolson (incond. estable) a r > 1
 
 Ejecutar:
-    python 2_estabilidad_latigo.py
+    python 2_estabilidad_latigo.py [--guardar] o [--no-guardar]
 """
 
+import argparse
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 from utils import solver_explicito, solver_crank_nicolson, impulso_gaussiano, L, C
+
+# ───────────────────────────────────────────────────────────────
+#  Argumentos de línea de comandos
+# ───────────────────────────────────────────────────────────────
+parser = argparse.ArgumentParser(
+    description='Análisis de estabilidad del látigo 1D',
+    formatter_class=argparse.RawDescriptionHelpFormatter
+)
+parser.add_argument('--guardar', action='store_true', default=False,
+                    help='Guardar todos los archivos (valor por defecto)')
+args = parser.parse_args()
 
 # ───────────────────────────────────────────────────────────────
 #  Parámetros
@@ -107,8 +119,11 @@ for ax, r_fac, color in zip(axes, r_vals, colors_r):
     ax.grid(True, alpha=0.3)
 
 plt.tight_layout()
-plt.savefig('estabilidad_soluciones.png', dpi=150, bbox_inches='tight')
-print("Guardado: estabilidad_soluciones.png")
+if args.guardar:
+    plt.savefig('estabilidad_soluciones.png', dpi=150, bbox_inches='tight')
+    print("Guardado: estabilidad_soluciones.png")
+else:
+    print("No se guardó: estabilidad_soluciones.png")
 plt.show()
 
 
@@ -150,8 +165,11 @@ ax2.legend(loc='upper right', fontsize=10)
 ax2.set_xlim(0, 2)
 ax2.set_ylim(0, 1)
 plt.tight_layout()
-plt.savefig('mapa_estabilidad.png', dpi=150, bbox_inches='tight')
-print("Guardado: mapa_estabilidad.png")
+if args.guardar:
+    plt.savefig('mapa_estabilidad.png', dpi=150, bbox_inches='tight')
+    print("Guardado: mapa_estabilidad.png")
+else:
+    print("No se guardó: mapa_estabilidad.png")
 plt.show()
 
 
@@ -181,8 +199,11 @@ ax3.legend(fontsize=10)
 ax3.set_xlim(0, 2.5); ax3.set_ylim(0, 4.5)
 ax3.grid(True, alpha=0.35)
 plt.tight_layout()
-plt.savefig('amplificacion_vs_r.png', dpi=150, bbox_inches='tight')
-print("Guardado: amplificacion_vs_r.png")
+if args.guardar:
+    plt.savefig('amplificacion_vs_r.png', dpi=150, bbox_inches='tight')
+    print("Guardado: amplificacion_vs_r.png")
+else:
+    print("No se guardó: amplificacion_vs_r.png")
 plt.show()
 
 
@@ -227,8 +248,11 @@ for col, tp in enumerate(t_plot):
 axes4[0, 0].set_ylabel('u(x,t)  [Explícito]', fontsize=9)
 axes4[1, 0].set_ylabel('u(x,t)  [CN]', fontsize=9)
 plt.tight_layout()
-plt.savefig('estabilidad_exp_vs_cn.png', dpi=150, bbox_inches='tight')
-print("Guardado: estabilidad_exp_vs_cn.png")
+if args.guardar:
+    plt.savefig('estabilidad_exp_vs_cn.png', dpi=150, bbox_inches='tight')
+    print("Guardado: estabilidad_exp_vs_cn.png")
+else:
+    print("No se guardó: estabilidad_exp_vs_cn.png")
 plt.show()
 
 print("\nResumen de estabilidad:")
